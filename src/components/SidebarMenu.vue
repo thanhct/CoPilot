@@ -1,38 +1,36 @@
 <template>
   <ul class="sidebar-menu">
     <li class="header">TOOLS</li>
-    <router-link tag="li" class="pageLink" to="/">
-      <a>
-        <i class="fa fa-desktop"></i>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/"><i class="fa fa-desktop"></i>
         <span class="page">Dashboard</span>
-      </a>
-    </router-link>
-    <router-link tag="li" class="pageLink" to="/tables">
-      <a>
-        <i class="fa fa-table"></i>
-        <span class="page">Tables</span>
-      </a>
-    </router-link>
+      </router-link>
+    </li>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/files"><i class="fa fa-table"></i>
+        <span class="page">Files</span>
+      </router-link>
+    </li>
 
     <li class="header">ME</li>
-    <router-link tag="li" class="pageLink" to="/tasks">
-      <a>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/tasks">
         <i class="fa fa-tasks"></i>
         <span class="page">Tasks</span>
-      </a>
-    </router-link>
-    <router-link tag="li" class="pageLink" to="/setting">
-      <a>
+      </router-link>
+    </li>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/setting">
         <i class="fa fa-cog"></i>
         <span class="page">Settings</span>
-      </a>
-    </router-link>
+      </router-link>
+    </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-folder-o"></i>
-        <span class="treeview-title">Files</span>
-        <span class="pull-right-container pull-right">
-          <i class="fa fa-angle-left fa-fw"></i>
+        <span>Files</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left fa-fw pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
@@ -55,70 +53,74 @@
     </li>
 
     <li class="header">LOGS</li>
-    <router-link tag="li" class="pageLink" to="/access">
-      <a>
-        <i class="fa fa-book"></i>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/access"><i class="fa fa-book"></i>
         <span class="page">Access</span>
-      </a>
-    </router-link>
-    <router-link tag="li" class="pageLink" to="/server">
-      <a>
-        <i class="fa fa-hdd-o"></i>
+      </router-link>
+    </li>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/server"><i class="fa fa-hdd-o"></i>
         <span class="page">Server</span>
-      </a>
-    </router-link>
-    <router-link tag="li" class="pageLink" to="/repos">
-      <a>
-        <i class="fa fa-heart"></i>
+      </router-link>
+    </li>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/repos"><i class="fa fa-heart"></i>
         <span class="page">Repos</span>
         <small class="label pull-right bg-green">AJAX</small>
-      </a>
-    </router-link>
+      </router-link>
+    </li>
 
     <li class="header">PAGES</li>
-    <router-link tag="li" class="pageLink" to="/login">
-      <a>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/login">
         <i class="fa fa-circle-o text-yellow"></i>
         <span class="page"> Login</span>
-      </a>
-    </router-link>
-    <router-link tag="li" class="pageLink" to="/404">
-      <a>
-        <i class="fa fa-circle-o text-red"></i>
+      </router-link>
+    </li>
+    <li class="pageLink" v-on:click="toggleMenu">
+      <router-link to="/404"><i class="fa fa-circle-o text-red"></i>
         <span class="page"> 404</span>
-      </a>
-    </router-link>
+      </router-link>
+    </li>
   </ul>
 </template>
 <script>
 export default {
-  name: 'SidebarMenu'
+  name: 'SidebarName',
+  methods: {
+    toggleMenu (event) {
+      // remove active from li
+      var active = document.querySelector('li.pageLink.active')
+
+      if (active) {
+        active.classList.remove('active')
+      }
+      // window.$('li.pageLink.active').removeClass('active')
+      // Add it to the item that was clicked
+      event.toElement.parentElement.className = 'pageLink active'
+    }
+  }
 }
 </script>
 <style>
-/* override default */
-.sidebar-menu > li > a {
-  padding: 12px 15px 12px 15px;
-}
-
-.sidebar-menu li.active > a > .fa-angle-left,
-.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {
-  animation-name: rotate;
-  animation-duration: 0.2s;
-  animation-fill-mode: forwards;
-}
-
-.treeview-title {
-  z-index: 1;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
+  /* override default */
+  .sidebar-menu>li>a {
+    padding: 12px 15px 12px 15px;
   }
 
-  100% {
-    transform: rotate(-90deg);
+  .sidebar-menu li.active>a>.fa-angle-left, .sidebar-menu li.active>a>.pull-right-container>.fa-angle-left {
+    animation-name: rotate;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
   }
-}
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(-90deg);
+    }
+  }
 </style>

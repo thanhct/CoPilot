@@ -4,7 +4,7 @@ import NotFoundView from './components/404.vue'
 
 // Import Views - Dash
 import DashboardView from './components/views/Dashboard.vue'
-import TablesView from './components/views/Tables.vue'
+import FilesView from './components/views/Files.vue'
 import TasksView from './components/views/Tasks.vue'
 import SettingView from './components/views/Setting.vue'
 import AccessView from './components/views/Access.vue'
@@ -28,10 +28,10 @@ const routes = [
         name: 'Dashboard',
         meta: {description: 'Overview of environment'}
       }, {
-        path: 'tables',
-        component: TablesView,
-        name: 'Tables',
-        meta: {description: 'Simple and advance table in CoPilot'}
+        path: 'files',
+        component: FilesView,
+        name: 'files',
+        meta: {description: 'upload file and list file'}
       }, {
         path: 'tasks',
         component: TasksView,
@@ -51,7 +51,7 @@ const routes = [
         path: 'server',
         component: ServerView,
         name: 'Servers',
-        meta: {description: 'List of our servers', requiresAuth: true}
+        meta: {description: 'List of our servers'}
       }, {
         path: 'repos',
         component: ReposView,
