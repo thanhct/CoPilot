@@ -29,6 +29,10 @@ export default {
   methods: {
     uploadFile (event) {
       var file = event.target.files[0]
+      if (file.size > 3072000) {
+        alert("File is too big!");
+        return;
+      }
       // console.log(file.name)
       var reader = new FileReader()
       var _this = this
@@ -38,7 +42,7 @@ export default {
 
         _this.imagePreview = result
         var request = new XMLHttpRequest()
-        request.open('POST', '')
+        request.open('POST', 'https://pq1natvbk8.execute-api.ap-southeast-1.amazonaws.com/dev/v1/s3drive/storage')
         let data = {
           'fileName': file.name,
           'fileData': result
@@ -46,8 +50,12 @@ export default {
 
         request.send(JSON.stringify(data))
         request.onreadystatechange = function() { // Call a function when the state changes.
+            if (this.readyState === 4 && this.status != 200) {
+              alert('Error: ' + this.status);
+            }
             if (this.readyState === 4 && this.status === 200) {
                 _this.imagePreview = 'http://' + JSON.parse(this.response)['cloudfront']
+                alert('Upload sucessfully!: ');
             }
         }
       }.bind(this), false)
